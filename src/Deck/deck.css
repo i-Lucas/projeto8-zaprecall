@@ -1,0 +1,64 @@
+.deck {
+    
+    width: 100%;
+    height: 100vh;
+}
+
+.deck header {
+
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deck header h1 {
+
+    margin-left: 10px;
+    font-family: 'Righteous';
+    font-weight: 400;
+    font-size: 25px;
+    color: #FFF;
+}
+
+.deck main {
+
+    width: 100%;
+    height: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.deck footer {
+
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #FFF;
+}
+
+.deck footer h1 {
+
+    font-family: 'Recursive';
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 14px;
+    color: #333333;
+}
+
+/* desktop */
+@media (min-width: 900px) {
+
+    .deck main .flashcard {
+        width: 40%;
+    }
+}
