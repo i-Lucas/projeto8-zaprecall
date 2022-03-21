@@ -27,6 +27,11 @@
     font-size: 30px;
 }
 
+.card-icon:hover{
+
+    cursor: pointer;
+}
+
 /* --------------------------------->> question <<---------------------------------  */
 
 .question {
@@ -55,6 +60,11 @@
     position: absolute;
     bottom: 10%;
     right: 15%;
+}
+
+.question-icon:hover{
+    
+    cursor: pointer;
 }
 
 /* --------------------------------->> answer <<---------------------------------  */
@@ -153,6 +163,11 @@
     color: #FFFFFF;
 }
 
+.option-1, .option-2, .option-3:hover{
+    
+    cursor: pointer;
+}
+
 .opc1 {
 
     text-decoration-line: line-through;
@@ -171,11 +186,11 @@
     color: #2FBE34;
 }
 
-
 /* desktop */
 @media (min-width: 900px) {
 
     .card, .answer, .question {
         width: 40%;
+        margin-top: 0.5%;
     }
 }

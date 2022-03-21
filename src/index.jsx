@@ -6,7 +6,7 @@ import ShowDeck from './Deck/Deck'
 
 function App() {
 
-    const [start, setStart] = useState(true)
+    const [start, setStart] = useState(false)
     const startApp = () => setStart(!start)
     const CheckStart = () => start === false ? <Home func={startApp} /> : <ShowDeck />
     return  <CheckStart />

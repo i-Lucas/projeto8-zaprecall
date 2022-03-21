@@ -1,14 +1,21 @@
 import { useState } from 'react'
+
 import icon from './setinha.png'
 import './card.css'
 
 export default function Card({ id, question, answer }) {
 
     const [cardstate, setCardState] = useState('flashcard')
+    const footerIcons = []
 
     const showQuestion = () => setCardState('question')
     const showAnswer = () => setCardState('answer')
-    const cardInfo = (info) =>  setCardState(info)
+    
+    function cardInfo ( info ) {
+
+        setCardState(info)
+        footerIcons.push(info)
+    }
 
     return (
         cardstate === 'flashcard' ?
@@ -20,6 +27,7 @@ export default function Card({ id, question, answer }) {
                 : cardstate === 'answer' ?
                     <RenderAnswer answer={answer} cardInfo={cardInfo} /> :
                     <RenderCardStatus id={id} status={cardstate} />
+                   
     )
 }
 
@@ -73,6 +81,7 @@ function RenderCardStatus({ id, status }) {
     if (status === 3) { cardinfo = { color: 'opc3', icon: <div className="opc3"><ion-icon name="checkmark-circle"></ion-icon></div> } }
 
     return (
+        
         <div className="card">
             <div className="card-number">
                 <h1 className={cardinfo.color}>Pergunta {id}</h1>
