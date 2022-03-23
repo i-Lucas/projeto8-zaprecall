@@ -3,6 +3,7 @@ import logoPequeno from '../../assets/img/logo-pequeno.png'
 import './style.css'
 
 import { useState } from 'react'
+import Flashcard from '../Flashcard'
 
 export default function Deck() {
 
@@ -10,19 +11,26 @@ export default function Deck() {
 
         if (questoes.length === 0) {
 
+            // sorteando o array data aleatoriamente
             data.sort((a, b) => Math.random() - 0.5)
+            // preenchendo o array de questões com as questões do data
             setQuestoes([...data])
             return <></>
+
         } else {
 
-            return questoes.map((questao, index) => {
-                return <p>{questao.frente}</p>
+            return questoes.map(({ frente, verso }, index) => {
+
+                return <Flashcard
+                    frente={frente}
+                    verso={verso}
+                    indice={index + 1}
+                    key={index} />
             })
         }
     }
 
     const [questoes, setQuestoes] = useState([])
-    const flashcards = montarFlashcards();
 
     return (
         <div className="Deck">
@@ -31,7 +39,7 @@ export default function Deck() {
                 <h1>ZapRecall</h1>
             </header>
             <main>
-                {flashcards}
+                {montarFlashcards()}
             </main>
             <footer>
                 0/4 Concluídos
