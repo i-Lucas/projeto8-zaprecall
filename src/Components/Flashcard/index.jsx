@@ -1,36 +1,86 @@
-import './style.css'
-import Icone from './../Icone'
+import { useState } from "react";
 
-import { useState } from 'react'
+import Icone from "./../Icone";
 
-export default function Flashcard({ frente, verso, indice }) {
+import "./style.css";
+
+function Flashcard(props) {
 
     function montarConteudoEtapa() {
 
+        const { etapa, resultado } = status;
         if (etapa === 1) {
             return (
-                <div className="painel fechado" onClick={() => setEtapa(2)} >
+                <div
+                    className="painel fechado"
+                    onClick={() => setStatus({ ...status, etapa: 2 })}
+                >
                     <p>Flashcard {indice}</p>
-                    <Icone icone='play' />
+                    <Icone icone="play" />
                 </div>
             )
         }
 
         if (etapa === 2) {
-            return (<h2 onClick={() => setEtapa(3)}>{frente}</h2>)
+            return (
+                <div className="painel aberto">
+                    <p>{frente}</p>
+                    <div className="icone" onClick={() => setStatus({ ...status, etapa: 3 })}>
+                        <Icone icone="setinha" />
+                    </div>
+                </div>
+            )
         }
 
         if (etapa === 3) {
-            return (<h1 onClick={() => setEtapa(4)}>{verso}</h1>)
+            const botoes = [
+                { texto: "Não lembrei", resultado: "erro" },
+                { texto: "Quase não lembrei", resultado: "duvida" },
+                { texto: "Zap!", resultado: "acerto" }
+            ]
+            return (
+                <div className="painel aberto">
+                    <p>{verso}</p>
+                    <div className="botoes">
+                        {
+                            botoes.map(({ texto, resultado }) => {
+                                return (
+                                    <button
+                                        key={resultado}
+                                        className={resultado}
+                                        onClick={() => {
+                                            setStatus({ etapa: 4, resultado });
+                                            aoFinalizar(resultado);
+                                        }}
+                                    >
+                                        {texto}
+                                    </button>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )
         }
 
         if (etapa === 4) {
-            return (<h1>fim</h1>)
+            return (
+                <div className="painel fechado finalizado">
+                    <p className={resultado}>Flashcard {indice}</p>
+                    <Icone icone={resultado} />
+                </div>
+            )
         }
     }
 
-    const [etapa, setEtapa] = useState(1)
+    const [status, setStatus] = useState({
+        etapa: 1,
+        resultado: ""
+    });
+    const { frente, verso, indice, aoFinalizar } = props;
 
-    const conteudo = montarConteudoEtapa()
+    const conteudo = montarConteudoEtapa();
     return <div className="Flashcard">{conteudo}</div>
 }
+
+export default Flashcard;

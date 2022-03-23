@@ -4,6 +4,7 @@ import './style.css'
 
 import { useState } from 'react'
 import Flashcard from '../Flashcard'
+import Icone from '../Icone'
 
 export default function Deck() {
 
@@ -25,12 +26,47 @@ export default function Deck() {
                     frente={frente}
                     verso={verso}
                     indice={index + 1}
-                    key={index} />
+                    key={index}
+                    aoFinalizar={resposta => setRespostas([...respostas, resposta])}
+                />
             })
         }
     }
 
     const [questoes, setQuestoes] = useState([])
+    const [respostas, setRespostas] = useState([])
+
+    const footer = montarFooter()
+
+    function montarFooter() {
+
+        let resultado = <></>;
+
+        if (respostas.length === questoes.length && questoes.length > 0) {
+            if (!respostas.includes("erro")) {
+                resultado = (
+                    <div className="resultado">
+                        <span><Icone icone="festinha" /> Parabéns!</span>
+                        <p>Você não esqueceu de nenhum flashcard!</p>
+                    </div>
+                )
+            } else {
+                resultado = (
+                    <div className="resultado">
+                        <span><Icone icone="triste" /> Putz!</span>
+                        <p>Ainda faltam alguns...Mas não desanime!</p>
+                    </div>
+                )
+            }
+        }
+        return (
+            <>
+                {resultado}
+                <p>{respostas.length}/{questoes.length} concluídos</p>
+                {respostas.map((resposta, index) => <Icone icone={resposta} key={index} />)}
+            </>
+        )
+    }
 
     return (
         <div className="Deck">
@@ -42,7 +78,7 @@ export default function Deck() {
                 {montarFlashcards()}
             </main>
             <footer>
-                0/4 Concluídos
+                {footer}
             </footer>
         </div>
     )
